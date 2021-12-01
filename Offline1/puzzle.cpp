@@ -21,13 +21,15 @@ int inversion(int **data,int k)
         for(int j=0;j<k;j++)
         {
             arr[m]=data[i][j];
+            m++;
         }
     }
     for( int i=0;i<n;i++)
     {
         for(int j=i+1;j<n;j++)
         {
-            if(arr[i]>arr[j])
+
+            if(arr[i]>arr[j]&&!(arr[i]==0|arr[j]==0))
              c++;
         }
     }
@@ -104,6 +106,7 @@ class Node
 private:
     int k;
     //int height;
+    int cs;
     int  **data;
     int fval,gval,hval,choice;
     Node* parent;
@@ -116,6 +119,7 @@ public:
     int get_hval();
     int get_gval();
     void set_fval(int);
+    int childs();
     position* get_blank();
     void print_node();
     vector<Node*> get_children();
@@ -127,6 +131,7 @@ Node::Node(int** s,int k,int l,int choice)
     this->k=k;
     data=new int*[k];
     gval=l;
+    cs=0;
     for(int i=0; i<k; i++)
     {
         data[i]=new int[k];
@@ -161,13 +166,14 @@ int** Node::get_data()
 }
 position* Node::get_blank()
 {
+    position* pos;
 for(int i=0; i<k; i++)
     {
         for(int j=0; j<k; j++)
         {
             if(data[i][j]==0)
             {
-                position* pos=new position(i,j);
+                pos=new position(i,j);
             }
 
         }
@@ -237,6 +243,10 @@ bool Node::equals(int ** arr)
     }
     return true;
 }
+int Node:: childs()
+{
+    return cs;
+}
 vector<Node*> Node::get_children()
 {
     vector<Node*> v;
@@ -278,6 +288,7 @@ vector<Node*> Node::get_children()
                 Node* n=new Node(ch,k,gval+1,choice);
                 n->set_parent(this);
                 v.push_back(n);
+                cs++;
             }
 
         }
@@ -286,6 +297,7 @@ vector<Node*> Node::get_children()
             Node* n=new Node(ch,k,gval+1,choice);
             n->set_parent(this);
             v.push_back(n);
+            cs++;
         }
     }
     if(bl_x+1<k)
@@ -310,6 +322,7 @@ vector<Node*> Node::get_children()
                 Node* n=new Node(ch,k,gval+1,choice);
                 n->set_parent(this);
                 v.push_back(n);
+                cs++;
             }
 
         }
@@ -318,6 +331,7 @@ vector<Node*> Node::get_children()
             Node* n=new Node(ch,k,gval+1,choice);
             n->set_parent(this);
             v.push_back(n);
+            cs++;
         }
     }
     if(bl_y-1>=0)
@@ -342,6 +356,7 @@ vector<Node*> Node::get_children()
                 Node* n=new Node(ch,k,gval+1,choice);
                 n->set_parent(this);
                 v.push_back(n);
+                cs++;
             }
 
         }
@@ -350,6 +365,7 @@ vector<Node*> Node::get_children()
             Node* n=new Node(ch,k,gval+1,choice);
             n->set_parent(this);
             v.push_back(n);
+            cs++;
         }
     }
     if(bl_y+1<k)
@@ -374,6 +390,7 @@ vector<Node*> Node::get_children()
                 Node* n=new Node(ch,k,gval+1,choice);
                 n->set_parent(this);
                 v.push_back(n);
+                cs++;
             }
 
         }
@@ -381,11 +398,9 @@ vector<Node*> Node::get_children()
         {
             Node* n=new Node(ch,k,gval+1,choice);
             n->set_parent(this);
-            v.push_back(n);
+            v.push_back(n);cs++;
         }
-        Node* n=new Node(ch,k,gval+1,choice);
-        n->set_parent(this);
-        v.push_back(n);
+
     }
     return v;
 
@@ -413,6 +428,7 @@ class puzzle
     vector<Node*> open;
     Node* src;
     Node* des;
+    int cost,expanded,explored;
 public:
     puzzle(int,Node*);
     bool A_star();
@@ -424,6 +440,9 @@ puzzle::puzzle(int n,Node* src)
 {
     this->n=n;
     this->src=src;
+    cost=0;
+    expanded=0;
+    explored=0;
     //closed=new vector<Node*>();
     // open=new vector<Node*>();
 }
@@ -437,6 +456,10 @@ void puzzle::print()
         v.push_back(temp);
         temp=temp->get_parent();
     }
+    cost=v.size();
+    cout<<"Optimal cost:"<<cost<<endl;
+    cout<<"Expanded nodes:"<<expanded<<endl;
+    cout<<"Explored nodes:"<<explored<<endl;
     for(int i=v.size()-1;i>=0;i--)
     {
         v[i]->print_node();
@@ -446,17 +469,18 @@ void puzzle::print()
 bool puzzle::A_star()
 {
     int in=inversion(src->get_data(),n);
+    //cout<<in<<endl;
     position* pos=src->get_blank();
-    if(k%2==1&&in%2==1)
+    if(n%2==1&&in%2==1)
     {
 
             return false;
     }
-    else if(k%2==0&&(k-1-pos->x)%2==0&&in%2!=1)
+    else if(n%2==0&&(n-1-pos->x)%2==0&&in%2!=1)
     {
         return false;
     }
-    else if(k%2==0&&(k-1-pos->x)%2==1&&in%2!=0)
+    else if(n%2==0&&(n-1-pos->x)%2==1&&in%2!=0)
     {
         return false;
     }
@@ -498,6 +522,8 @@ bool puzzle::A_star()
         //q->print_node();
 
         vector<Node*> children=q->get_children();
+        expanded++;
+        explored+=q->childs();
        // cout<<"ashe"<<endl;
 
         for(int m=0; m<children.size(); m++)
@@ -553,9 +579,12 @@ int main()
 
     puzzle *p=new puzzle(k,n);
 
-    int m= p->A_star();
+    if( p->A_star())
 
-    p->print();
+
+p->print();
+        else
+            cout<<"Unsolvable"<<endl;;
 }
 
 
