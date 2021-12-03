@@ -442,7 +442,7 @@ puzzle::puzzle(int n,Node* src)
     this->src=src;
     cost=0;
     expanded=0;
-    explored=0;
+    explored=1;
     //closed=new vector<Node*>();
     // open=new vector<Node*>();
 }
@@ -456,7 +456,7 @@ void puzzle::print()
         v.push_back(temp);
         temp=temp->get_parent();
     }
-    cost=v.size();
+    cost=v.size()-1;
     cout<<"Optimal cost:"<<cost<<endl;
     cout<<"Expanded nodes:"<<expanded<<endl;
     cout<<"Explored nodes:"<<explored<<endl;
@@ -476,11 +476,11 @@ bool puzzle::A_star()
 
             return false;
     }
-    else if(n%2==0&&(n-1-pos->x)%2==0&&in%2!=1)
+    else if(n%2==0&&(n-pos->x)%2==0&&in%2!=1)
     {
         return false;
     }
-    else if(n%2==0&&(n-1-pos->x)%2==1&&in%2!=0)
+    else if(n%2==0&&(n-pos->x)%2==1&&in%2!=0)
     {
         return false;
     }
@@ -544,6 +544,9 @@ bool puzzle::A_star()
 
 
     }
+
+    cout<<closed.size()<<endl;
+    cout<<open.size()+closed.size()<<endl;
     return true;
 }
 int main()
@@ -580,11 +583,9 @@ int main()
     puzzle *p=new puzzle(k,n);
 
     if( p->A_star())
-
-
-p->print();
-        else
-            cout<<"Unsolvable"<<endl;;
+        p->print();
+    else
+        cout<<"Unsolvable"<<endl;;
 }
 
 
