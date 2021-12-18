@@ -189,18 +189,12 @@ public class Bot {
         s1=m1.total_stone_on_side(1-my_turn);
         if(p==1)
         {
-            if(my_turn==0)
-                return 7*(m1.up_score-m1.down_score)+3*(s-s1);
-            else
-                return 7*(m1.down_score-m1.up_score)+3*(s-s1);
+            return 3*h1(m1,p)+(s-s1);
         }
 
         else
         {
-            if(my_turn==1)
-                return 7*(m1.up_score-m1.down_score)+3*(s1-s);
-            else
-                return 7*(m1.down_score-m1.up_score)+3*(s1-s);
+            return 3*h1(m1,p)+(s1-s);
         }
 
     }
@@ -209,16 +203,25 @@ public class Bot {
         if(p==1)
         {
             if(my_turn==0)
-                return h2(m1,p)+11*m1.additional1;
+            {
+                return h2(m1,p)+5*m1.additional1;
+            }
             else
-                return h2(m1,p)+11*m1.additional2;
+            {
+                return h2(m1,p)+5*m1.additional2;
+            }
         }
         else {
             if(my_turn==0)
-                return h2(m1,p)+11*m1.additional2;
-            else
-                return h2(m1,p)+11*m1.additional1;
+            {
+                return h2(m1,p)+5*m1.additional2;
+            }
 
+            else
+            {
+                return h2(m1,p)+5*m1.additional1;
+
+            }
         }
 
 
@@ -228,15 +231,15 @@ public class Bot {
         if(p==1)
         {
             if(my_turn==0)
-                return h2(m1,p)+11*(m1.additional1-m1.additional2);
+                return h2(m1,p)+2*(m1.additional1-m1.additional2);
             else
-                return h2(m1,p)+11*(m1.additional2-m1.additional1);
+                return h2(m1,p)+2*(m1.additional2-m1.additional1);
         }
         else {
             if(my_turn==0)
-                return h2(m1,p)+11*(m1.additional2-m1.additional1);
+                return h2(m1,p)+2*(m1.additional2-m1.additional1);
             else
-                return h2(m1,p)+11*(m1.additional1-m1.additional2);
+                return h2(m1,p)+2*(m1.additional1-m1.additional2);
 
         }
     }
@@ -245,15 +248,15 @@ public class Bot {
         if(p==1)
         {
             if(my_turn==0)
-                return h3(m1,p)+11*(m1.additional1-m1.additional2)+7*m1.extra1;
+                return h2(m1,p)+2*(m1.additional1-m1.additional2)+m1.extra1;
             else
-                return h3(m1,p)+11*(m1.additional2-m1.additional1)+7*m1.extra2;
+                return h2(m1,p)+2*(m1.additional2-m1.additional1)+m1.extra2;
         }
         else {
             if(my_turn==0)
-                return h3(m1,p)+11*(m1.additional2-m1.additional1)+7*m1.extra2;
+                return h2(m1,p)+2*(m1.additional2-m1.additional1)+m1.extra2;
             else
-                return h3(m1,p)+11*(m1.additional1-m1.additional2)+7*m1.extra1;
+                return h2(m1,p)+2*(m1.additional1-m1.additional2)+m1.extra1;
 
         }
     }
@@ -262,15 +265,15 @@ public class Bot {
         if(p==1)
         {
             if(my_turn==0)
-                return h3(m1,p)+11*(m1.additional1-m1.additional2)+7*(m1.extra1-m1.extra2);
+                return h2(m1,p)+2*(m1.additional1-m1.additional2)+2*(m1.extra1-m1.extra2);
             else
-                return h3(m1,p)+11*(m1.additional2-m1.additional1)+7*(m1.extra2-m1.extra1);
+                return h2(m1,p)+2*(m1.additional2-m1.additional1)+2*(m1.extra2-m1.extra1);
         }
         else {
             if(my_turn==0)
-                return h3(m1,p)+11*(m1.additional2-m1.additional1)+7*(m1.extra2-m1.extra1);
+                return h2(m1,p)+2*(m1.additional2-m1.additional1)+2*(m1.extra2-m1.extra1);
             else
-                return h3(m1,p)+11*(m1.additional1-m1.additional2)+7*(m1.extra1-m1.extra2);
+                return h2(m1,p)+2*(m1.additional1-m1.additional2)+2*(m1.extra1-m1.extra2);
 
         }
     }

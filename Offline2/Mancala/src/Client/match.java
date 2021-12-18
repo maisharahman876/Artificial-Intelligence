@@ -29,11 +29,12 @@ public class match {
             System.out.print("Enter the depth of AI: " );
             int d= sc.nextByte();
             System.out.println("1. (stones_in_my_storage – stones_in_opponents_storage)");
-            System.out.println("2. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)");
-            System.out.println("3. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)\n + 11 * (additional_move_earned)");
-            System.out.println("4. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)\n + 11 * (additional_move_earned-additional_move_earnd_by opponent)");
-            System.out.println("5. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)\n + 11 * (additional_move_earned-additional_move_earnd_by opponent) + 7 * earned_capture");
-            System.out.println("6. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)\n + 11 * (additional_move_earned-additional_move_earnd_by opponent) + 7 * (earned_capture_by me - earned_capture_by opponent");
+            System.out.println("2. 3 * (stones_in_my_storage – stones_in_opponents_storage) + (stones_on_my_side – stones_on_opponents_side)");
+            System.out.println("3. 3 * (stones_in_my_storage – stones_in_opponents_storage) + (stones_on_my_side – stones_on_opponents_side)\n        + 5 * (additional_move_earned)");
+            System.out.println("4. 3 * (stones_in_my_storage – stones_in_opponents_storage) + (stones_on_my_side – stones_on_opponents_side)\n      + 2 * (additional_move_earned-additional_move_earnd_by opponent)");
+            System.out.println("5. 3 * (stones_in_my_storage – stones_in_opponents_storage) + (stones_on_my_side – stones_on_opponents_side)\n      + 2 * (additional_move_earned-additional_move_earnd_by opponent) +  earned_capture");
+            System.out.println("6. 3 * (stones_in_my_storage – stones_in_opponents_storage) +  (stones_on_my_side – stones_on_opponents_side)\n      + 2 (additional_move_earned-additional_move_earnd_by opponent) + 2 * (earned_capture_by me - earned_capture_by opponent");
+            System.out.print("Enter heuristic of AI1: " );
             System.out.print("Enter heuristic of AI: " );
 
             Bot AI=new Bot(m,d,"AI",sc.nextInt());
@@ -79,11 +80,11 @@ public class match {
             System.out.print("Enter the depth of AI2: " );
             int d2= sc.nextByte();
             System.out.println("1. (stones_in_my_storage – stones_in_opponents_storage)");
-            System.out.println("2. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)");
-            System.out.println("3. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)\n + 11 * (additional_move_earned)");
-            System.out.println("4. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)\n + 11 * (additional_move_earned-additional_move_earnd_by opponent)");
-            System.out.println("5. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)\n + 11 * (additional_move_earned-additional_move_earnd_by opponent) + 7 * earned_capture");
-            System.out.println("6. 7 * (stones_in_my_storage – stones_in_opponents_storage) + 3 * (stones_on_my_side – stones_on_opponents_side)\n + 11 * (additional_move_earned-additional_move_earnd_by opponent) + 7 * (earned_capture_by me - earned_capture_by opponent");
+            System.out.println("2. 3 * (stones_in_my_storage – stones_in_opponents_storage) + (stones_on_my_side – stones_on_opponents_side)");
+            System.out.println("3. 3 * (stones_in_my_storage – stones_in_opponents_storage) + (stones_on_my_side – stones_on_opponents_side)\n        + 5 * (additional_move_earned)");
+            System.out.println("4. 3 * (stones_in_my_storage – stones_in_opponents_storage) + (stones_on_my_side – stones_on_opponents_side)\n      + 2 * (additional_move_earned-additional_move_earnd_by opponent)");
+            System.out.println("5. 3 * (stones_in_my_storage – stones_in_opponents_storage) + (stones_on_my_side – stones_on_opponents_side)\n      + 2 * (additional_move_earned-additional_move_earnd_by opponent) +  earned_capture");
+            System.out.println("6. 3 * (stones_in_my_storage – stones_in_opponents_storage) +  (stones_on_my_side – stones_on_opponents_side)\n      + 2 (additional_move_earned-additional_move_earnd_by opponent) + 2 * (earned_capture_by me - earned_capture_by opponent");
             System.out.print("Enter heuristic of AI1: " );
             int h1=sc.nextInt();
             System.out.print("Enter heuristic of AI2: " );
