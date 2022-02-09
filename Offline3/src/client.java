@@ -32,6 +32,7 @@ public class client {
 
                 System.out.println("Probability Update ("+i+" no Reading):");
                 i++;
+                grid.update(ex,ey,val);
                 grid.print();
 
             }
