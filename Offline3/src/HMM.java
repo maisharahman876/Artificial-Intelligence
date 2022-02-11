@@ -19,7 +19,7 @@ public class HMM {
     }
     public void print()
     {
-        DecimalFormat df = new DecimalFormat("0.0000");
+        DecimalFormat df = new DecimalFormat("0.0000000");
         for(int i=0;i<m;i++)
         {
 
@@ -118,50 +118,60 @@ public class HMM {
         //System.out.println("0.9/"+count);
         return (0.9/(double)count);
     }
-    private double transition_prob(int x,int y)
+    private double transition_prob(int x,int y,double [][] temp)
     {
         double sum=0.0;
 
         if(x-1>=0&&y-1>=0)
         {
             if(grid[x-1][y-1]!=0.0)
-            sum+=ang_prob(x-1,y-1);
+            sum+=ang_prob(x-1,y-1)*temp[x-1][y-1];
         }
         if(x-1>=0&&y+1<n)
             if(grid[x-1][y+1]!=0.0)
-            sum+=ang_prob(x-1,y+1);
+            sum+=ang_prob(x-1,y+1)*temp[x-1][y+1];
         if(x+1<m&&y-1>=0)
             if(grid[x+1][y-1]!=0.0)
-            sum+=ang_prob(x+1,y-1);
+            sum+=ang_prob(x+1,y-1)*temp[x+1][y-1];
         if(x+1<m&&y+1<n)
             if(grid[x+1][y+1]!=0.0)
-            sum+=ang_prob(x+1,y+1);
+            sum+=ang_prob(x+1,y+1)*temp[x+1][y+1];
         if(x-1>=0)
             if(grid[x-1][y]!=0.0)
-            sum+=side_prob(x-1,y);
+            sum+=side_prob(x-1,y)*temp[x-1][y];
         if(x+1<m)
             if(grid[x+1][y]!=0.0)
-            sum+=side_prob(x+1,y);
+            sum+=side_prob(x+1,y)*temp[x+1][y];
         if(y-1>=0)
             if(grid[x][y-1]!=0.0)
-            sum+=side_prob(x,y-1);
+            sum+=side_prob(x,y-1)*temp[x][y-1];
         if(y+1<n)
             if(grid[x][y+1]!=0.0)
-            sum+=side_prob(x,y+1);
+            sum+=side_prob(x,y+1)*temp[x][y+1];
 
-        sum+=ang_prob(x,y);
+        sum+=ang_prob(x,y)*temp[x][y];
        // System.out.println();
         return sum;
     }
     public void update(int ex, int ey, int val)
     {
+        double temp[][]=new double[m][n];
+        for(int i=0;i<m;i++)
+        {
+
+            for(int j=0;j<n;j++)
+            {
+               temp[i][j]=grid[i][j];
+            }
+
+        }
         for(int i=0;i<m;i++)
         {
 
             for(int j=0;j<n;j++)
             {
                 if(grid[i][j]*1000!=0.0)
-                     grid[i][j]*=transition_prob(i,j);
+                     grid[i][j]=transition_prob(i,j,temp);
             }
 
         }
